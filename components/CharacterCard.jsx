@@ -1,14 +1,43 @@
 import * as React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function CharacterCard({ image, name }) {
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 5,
+        borderWidth: 2,
+        padding: 10,
+        borderColor: 'darkred',
+        borderRadius: 10,
+        backgroundColor: 'rgb(223, 184, 184)'
+    },
+    image: {
+        width: 30,
+        height: 30,
+        marginRight: 10
+    },
+    font: {
+        fontWeight: 'bold'
+    }
+});
+
+
+export default function CharacterCard({ id, image, name }) {
+    const navigation = useNavigation();
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={() => navigation.navigate('Detail', { id })}
+        >
             <Image
                 style={styles.image}
-                source={image}
+                source={{ uri: image }}
             />
             <Text style={styles.font}>{name}</Text>
-        </View>
+        </TouchableOpacity>
     );
 }
